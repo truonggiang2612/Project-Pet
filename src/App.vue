@@ -1,18 +1,15 @@
+<script setup>
+  import PaginationDemo from './components/PaginationDemo.vue'
+  
+</script>
+
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="container-app">
+    <h1>Pagination</h1>
+    <PaginationDemo/>
+  </div>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
-
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
-</script>
 
 <style>
 #app {
