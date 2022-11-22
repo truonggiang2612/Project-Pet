@@ -1,19 +1,19 @@
 <script setup>
 import axios from 'axios'
 import { ref, computed, onMounted } from 'vue';
-var url = "https://randomuser.me/api/?results=20"
+var url = "https://jsonplaceholder.typicode.com/posts"
 
 const list = ref([]);
-const prePage = ref(5);     // Số lượng item hiển thị là 5
-const currentPage = ref(1)    // Mặc định đứng ở trang 1
+const totalItemShow = ref(10);     // Show item = 10
+const currentPage = ref(1)    // Default page 1
 
 
-// Call API lấy dữ liệu
+// Call API get data
 const getUsers = () => {
   axios.get(url)
     .then(res => {
-      console.log('res------>', res.data.results);
-      list.value = res.data.results
+      console.log('res------>', res.data);
+      list.value = res.data
     })
     .catch(err => {
       console.log(err);
@@ -25,7 +25,7 @@ onMounted(() => {
 })
 
 
-// Hàm chuyển trang
+// Change page
 const changePage = (num) => {
   console.log('Số truyền vào là:', num);
   console.log('Trang hiện tại là:', currentPage.value);
@@ -35,105 +35,29 @@ const changePage = (num) => {
 
 // Computed
 const filteredList = computed(() => {
-  const star = (currentPage.value - 1) * prePage.value
-  const end = currentPage.value * prePage.value
+  const star = (currentPage.value - 1) * totalItemShow.value
+  const end = currentPage.value * totalItemShow.value
   const result = list.value.slice(star, end)
   return result
 })
 </script>
 
 <template>
-  <div id="app">
-    <div class="container">
-      <div class="user" v-for="(user, index) in filteredList" :key="index">
-        <img class="headshot" :src="user.picture.thumbnail" />
+    <div class="flex flex-col justify-center">
+      <div class="mb-[10px]" v-for="(user, index) in filteredList" :key="index">
         <div class="text-wrapper">
           <h3>
-            {{ user.name.title }} {{ user.name.first }} {{ user.name.last }}
+            <strong>id:</strong> {{ user.id }}
           </h3>
           <p>
-            {{ user.email }}
-          </p>
-          <p>
-            {{ user.phone }}
+            <strong>title:</strong> {{ user.title }}
           </p>
         </div>
       </div>
 
-      <div class="btn-wrapper">
-        <button class="btn" :disabled="currentPage === 1" @click="changePage(-1)">Prev</button>
-
-        <button class="btn" :disabled="currentPage === 1" @click="changePage(0)">1</button>   <!--Cả 3 button đang bị lỗi-->
-        <button class="btn" :disabled="currentPage === 2" @click="changePage(1)">2</button>   <!--Cả 3 button đang bị lỗi-->
-        <button class="btn" :disabled="currentPage === 3" @click="changePage(2)">3</button>   <!--Cả 3 button đang bị lỗi-->
-
-        <button class="btn" :disabled="currentPage === 4" @click="changePage(1)">Next</button>
+      <div class="w-[50%] flex justify-center items-center mt-[20px]">
+        <button class="border-2 p-[8px] rounded-[50%] mr-[50px] hover:bg-[#ffcdd2] active:bg-[#f44336] active:border-[#000]" :disabled="currentPage === 1" @click="changePage(-1)">Prev</button>
+        <button class="border-2 p-[8px] rounded-[50%] mr-[50px] hover:bg-[#ffcdd2] active:bg-[#f44336] active:border-[#000]" :disabled="currentPage === 10" @click="changePage(1)">Next</button>
       </div>
     </div>
-  </div>
 </template>
-
-<style scoped>
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.btn-wrapper {
-  margin: 20px;
-}
-
-.user {
-  width: 400px;
-  padding: 20px 40px;
-  display: flex;
-  align-items: center;
-  box-shadow: 2px 2px 8px #bfbfbf;
-  border-radius: 4px;
-  margin-bottom: 10px;
-}
-
-.headshot {
-  height: 80px;
-  width: 80px;
-  border-radius: 50%;
-  margin-right: 50px;
-}
-
-h3 {
-  margin-top: 0;
-}
-
-p {
-  margin: 2px;
-}
-
-.btn {
-  color: white;
-  font-size: 20px;
-  font-weight: 700;
-  background-color: #ffa2a2;
-  border: none;
-  padding: 10px 26px;
-  border-radius: 22px;
-  cursor: pointer;
-  margin: 0 50px;
-}
-
-.btn:hover {
-  background-color: #fdadad;
-}
-
-.btn:focus {
-  outline: none;
-}
-
-.btn:active {
-  background-color: #ef8c8c;
-}
-
-.btn:disabled {
-  background: #dddddd;
-}
-</style>
