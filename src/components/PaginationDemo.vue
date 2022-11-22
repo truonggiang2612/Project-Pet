@@ -4,9 +4,11 @@ import { ref, computed, onMounted } from 'vue';
 var url = "https://randomuser.me/api/?results=20"
 
 const list = ref([]);
-const prePage = ref(5);
-const currentPage = ref(1)
+const prePage = ref(5);     // Số lượng item hiển thị là 5
+const currentPage = ref(1)    // Mặc định đứng ở trang 1
 
+
+// Call API lấy dữ liệu
 const getUsers = () => {
   axios.get(url)
     .then(res => {
@@ -17,16 +19,21 @@ const getUsers = () => {
       console.log(err);
     })
 }
+
 onMounted(() => {
   getUsers()
 })
 
+
+// Hàm chuyển trang
 const changePage = (num) => {
-  console.log('number', num);
-  console.log('currentPage', currentPage.value);
-  currentPage.value = currentPage.value + num
+  console.log('Số truyền vào là:', num);
+  console.log('Trang hiện tại là:', currentPage.value);
+  currentPage.value = currentPage.value + num   // Trang hiện tại + number
 }
 
+
+// Computed
 const filteredList = computed(() => {
   const star = (currentPage.value - 1) * prePage.value
   const end = currentPage.value * prePage.value
@@ -54,8 +61,13 @@ const filteredList = computed(() => {
       </div>
 
       <div class="btn-wrapper">
-        <button class="btn" type="button" :disabled="currentPage === 1" @click="changePage(-1)">Prev</button>
-        <button class="btn" type="button" :disabled="currentPage === 4" @click="changePage(1)">Next</button>
+        <button class="btn" :disabled="currentPage === 1" @click="changePage(-1)">Prev</button>
+
+        <button class="btn" :disabled="currentPage === 1" @click="changePage(0)">1</button>   <!--Cả 3 button đang bị lỗi-->
+        <button class="btn" :disabled="currentPage === 2" @click="changePage(1)">2</button>   <!--Cả 3 button đang bị lỗi-->
+        <button class="btn" :disabled="currentPage === 3" @click="changePage(2)">3</button>   <!--Cả 3 button đang bị lỗi-->
+
+        <button class="btn" :disabled="currentPage === 4" @click="changePage(1)">Next</button>
       </div>
     </div>
   </div>
