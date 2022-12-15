@@ -76,18 +76,18 @@ const EditPost = (id) => {
 }
 
 // Update 
-const updateTask = (data) => {
-  if (!data || !data.id) {
-    return;
-  }
-  lists.value.forEach(item => {
-    if (item.id === data.id) {
-      item.name = data.name;
-      return;
-    }
-  })
-  selectedTask.value = null
-}
+// const updateTask = (data) => {
+//   if (!data || !data.id) {
+//     return;
+//   }
+//   lists.value.forEach(item => {
+//     if (item.id === data.id) {
+//       item.name = data.name;
+//       return;
+//     }
+//   })
+//   selectedTask.value = null
+// }
 
 // Change page
 const changePage = (num) => {

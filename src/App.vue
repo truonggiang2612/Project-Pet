@@ -1,10 +1,11 @@
 <script setup>
-import PaginationDemo from './components/PaginationDemo.vue';
+// import PaginationDemo from './components/PaginationDemo.vue';
+import FakeStoreApi from './components/FakeStoreApi.vue';
 
 </script>
 
 <template>
-  <div class="flex flex-col justify-center items-center bg-[#fff]">
+  <!-- <div class="flex flex-col justify-center items-center bg-[#fff]">
     <div class="md:text-[30px] p-[10px] rounded">
       <div class="md:absolute md:left-[10px]">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
@@ -20,6 +21,9 @@ import PaginationDemo from './components/PaginationDemo.vue';
     <div class="p-[20px] lg:w-[40%]">
       <PaginationDemo />
     </div>
+  </div> -->
+  <div>
+    <FakeStoreApi/>
   </div>
 </template>
 
