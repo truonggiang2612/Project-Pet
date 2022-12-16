@@ -1,15 +1,15 @@
 <script setup>
 
 import FakeStoreApi from './components/FakeStoreApi.vue';
-import SortProduct from './components/SortProduct.vue';
+// import SortProduct from './components/SortProduct.vue';
 
 </script>
 
 <template>
   <div class="container-app">
-    <div class="sort-product">
+    <!-- <div class="sort-product">
       <SortProduct />
-    </div>
+    </div> -->
     <div>
       <FakeStoreApi />
     </div>
@@ -18,7 +18,7 @@ import SortProduct from './components/SortProduct.vue';
 
 <style scoped>
 .sort-product {
-  width: 50px;
+  width: 100%;
   border: 1px solid #ccc;
 }
 </style>

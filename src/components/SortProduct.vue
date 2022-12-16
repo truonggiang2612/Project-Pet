@@ -16,3 +16,13 @@ const sortProduct = () => {
     <button @click="sortProduct()">Sort</button>
   </div>
 </template>
+
+<style scoped>
+.container-sort button {
+  border: 1px solid #ccc;
+  padding: 5px;
+  border-radius: 3px;
+  margin: 10px 0 0 10px;
+  cursor: pointer;
+}
+</style>

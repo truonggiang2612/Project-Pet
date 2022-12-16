@@ -5,35 +5,63 @@ import { onMounted, ref } from 'vue';
 const products = ref([])
 const errors = ref([])
 
-const getProducts = () => {
+//Get all products
+const getProducts = async () => {
     let url = 'https://fakestoreapi.com/products'
-    axios.get(url)
+    await axios.get(url)
         .then(res => {
-            console.log('res -------->', res.data);
             products.value = res.data
         })
         .catch(err => {
             console.log('err', err);
             errors.value.push(err)
         })
+        .finally(() => {
+            console.log("OK");
+        })
 }
+
+// Sort products - GIÁ TĂNG GIẢM
+const increasePrice = () => {
+    let increasePrice = products.value.sort((a,b) => a.price - b.price);
+    products.value = increasePrice;
+}
+
+const decreasePrice = () => {
+    let decreasePrice = products.value.sort((a,b) => b.price - a.price);
+    products.value = decreasePrice;
+}
+
 onMounted(() => getProducts())
 </script>
 
 <template>
+    <div class="container-sort">
+        <button @click="getProducts()">Default</button>
+        <button @click="increasePrice()">Increase Price</button>
+        <button @click="decreasePrice()">Decrease Price</button>
+    </div>
     <div class="container-store">
-        <ul class="product-item" v-for="(item, index) in products" :key="index">
+        <ul class="product-item" v-for="item in products" :key="item.id">
             <li class="item-img">
-                <img :src="item.image" alt="image" s>
+                <img :src="item.image" alt="image">
             </li>
             <li class="item-title"><strong>{{ item.title }}</strong></li>
-            <li><strong>Price:</strong> {{ item.price }}</li>
+            <li><strong>Price:</strong> {{ item.price }} $</li>
             <li><strong>Rate:</strong> {{ item.rating.rate }}</li>
         </ul>
     </div>
 </template>
 
 <style scoped>
+.container-sort button {
+    border: 1px solid #ccc;
+    padding: 0 5px;
+    border-radius: 3px;
+    margin: 10px 0 0 10px;
+    cursor: pointer;
+}
+
 .container-store {
     width: 100%;
     height: 100%;
