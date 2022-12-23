@@ -1,25 +1,29 @@
 <script setup>
-
 import FakeStoreApi from './components/FakeStoreApi.vue';
-// import SortProduct from './components/SortProduct.vue';
-
+import SliderProduct from './components/SliderProduct.vue';
 </script>
 
 <template>
   <div class="container-app">
-    <!-- <div class="sort-product">
-      <SortProduct />
-    </div> -->
+    <div class="slider-wrapper">
+      <SliderProduct/>
+    </div>
     <div>
-      <FakeStoreApi />
+      <FakeStoreApi/>
     </div>
   </div>
 </template>
 
 <style scoped>
-.sort-product {
+.container-app {
+  display: flex;
   width: 100%;
-  border: 1px solid #ccc;
+  height: 100%;
+  flex-direction: column;
+}
+.slider-wrapper {
+  height: auto;
+  margin: 20px auto;
 }
 </style>
 
