@@ -4,9 +4,11 @@ import { onMounted, ref } from 'vue';
 
 const products = ref([])
 const errors = ref([])
+const isLoading = ref(false)
 
 //Get all products
 const getProducts = async () => {
+    isLoading.value = true;
     let url = 'https://fakestoreapi.com/products'
     await axios.get(url)
         .then(res => {
@@ -18,6 +20,7 @@ const getProducts = async () => {
         })
         .finally(() => {
             console.log("OK");
+            isLoading.value = false
         })
 }
 
@@ -42,6 +45,10 @@ onMounted(() => getProducts())
         <button @click="decreasePrice()">Decrease Price</button>
     </div>
     <div class="container-store">
+        <div v-if = isLoading class="loading-data">
+            <img src="@/assets/images/5Q0v.gif" alt="Loading"/>
+            <h2>Pikachu loading....</h2>
+        </div>
         <ul class="product-item" v-for="item in products" :key="item.id">
             <li class="item-img">
                 <img :src="item.image" alt="image">
@@ -72,6 +79,12 @@ onMounted(() => getProducts())
     margin-top: 100px;
 }
 
+.loading-data {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 .product-item {
     border: 1px solid #ccc;
     border-radius: 10px;
